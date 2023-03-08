@@ -12,7 +12,7 @@ metadata:
 spec:
   template:
     spec:
-      {{- include "common.images.pullSecrets" . | nindent 6 }}
+      {{- include "common.images.renderPullSecrets" ( dict "images" (list .Values.job.image) "context" $) | nindent 6 }}
       containers:
       - name: "psql"
         image: {{ include "common.images.image" (dict "imageRoot" .Values.job.image "global" .Values.global ) }}
