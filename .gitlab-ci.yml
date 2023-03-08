@@ -45,7 +45,7 @@ package:
   needs:
     - "prepare"
   image:
-    name: "${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine/helm:3.11.1"
+    name: "${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine/helm@sha256:8628e3695fb743a8b9de89626f1b7a221280c2152c0e288c2504e59b68233e8b"
     entrypoint: [""]
   script:
     - "if [ -z \"${RELEASE_VERSION}\" ]; then exit 0; fi"
@@ -65,7 +65,7 @@ publish:
   needs:
     - "package"
     - "prepare"
-  image: "${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/curlimages/curl:7.88.1"
+  image: "${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/curlimages/curl@sha256:2ca8557052e23428e06d4944f85cf4f12fb59909bf34afde044e3938ed15920d"
   script:
     - "if [ -z \"${RELEASE_VERSION}\" ]; then exit 0; fi"
     - |
