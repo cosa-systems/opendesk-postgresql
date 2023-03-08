@@ -1,0 +1,44 @@
+{{- if .Values.job.enabled }}
+---
+apiVersion: "batch/v1"
+kind: "Job"
+metadata:
+  name: "{{ include "common.names.fullname" . }}-bootstrap"
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "post-install,post-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+spec:
+  template:
+    spec:
+      {{- include "common.images.pullSecrets" . | nindent 6 }}
+      containers:
+      - name: "psql"
+        image: {{ include "common.images.image" (dict "imageRoot" .Values.job.image "global" .Values.global ) }}
+        command:
+          - "/bin/sh"
+          - "-c"
+          - "/mnt/bootstrap/init-wait.sh && /mnt/bootstrap/init-user.sh && /mnt/bootstrap/init-db.sh"
+        volumeMounts:
+          - mountPath: "/mnt/bootstrap/"
+            name: "bootstrap"
+            readOnly: true
+        env:
+          - name: "PGHOST"
+            value: "{{ include "common.names.fullname" . }}"
+          - name: "PGPORT"
+            value: "{{ .Values.service.ports.postgresql }}"
+          - name: "PGUSER"
+            value: "{{ .Values.postgres.user }}"
+          - name: "PGPASSWORD"
+            value: "{{ .Values.postgres.password }}"
+      volumes:
+        - name: "bootstrap"
+          secret:
+            secretName: "{{ include "common.names.fullname" . }}-job"
+            defaultMode: 0550
+      restartPolicy: Never
+  backoffLimit: 4
+...
+{{- end }}

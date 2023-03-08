@@ -1,0 +1,446 @@
+---
+## Global parameters
+## Please, note that this will override the parameters, including dependencies, configured to use the global value
+##
+global:
+  ## Define docker registry address.
+  #
+  imageRegistry: "docker.io"
+
+  ## Credentials to fetch images from private registry
+  ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  #
+  imagePullSecrets: []
+
+## String to partially override release name.
+#
+nameOverride: ""
+
+## Provide a name to substitute for the full names of resources.
+#
+fullnameOverride: ""
+
+## Define image for postgresql server.
+#
+image:
+  ## Define docker registry address.
+  #
+  # registry: "docker.io"
+
+  ## Define repository string.
+  #
+  repository: "postgres"
+
+  ## Define image tag.
+  #
+  tag: "15-alpine"
+
+  ## Define a imagePullPolicy.
+  ##
+  ## Ref.: https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy
+  ##
+  ## "IfNotPresent" => The image is pulled only if it is not already present locally.
+  ## "Always" => Every time the kubelet launches a container, the kubelet queries the container image registry to
+  ##             resolve the name to an image digest. If the kubelet has a container image with that exact digest cached
+  ##             locally, the kubelet uses its cached image; otherwise, the kubelet pulls the image with the resolved
+  ##             digest, and uses that image to launch the container.
+  ## "Never" => The kubelet does not try fetching the image. If the image is somehow already present locally, the
+  ##            kubelet attempts to start the container; otherwise, startup fails
+  #
+  imagePullPolicy: "IfNotPresent"
+
+## PostgreSQL statefulset strategy type
+## Ref.: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
+#
+updateStrategy:
+  type: "RollingUpdate"
+  rollingUpdate: {}
+
+## Map of annotations to add to the statefulset.
+#
+annotations: {}
+
+## PostgreSQL main configuration to be injected as ConfigMap
+## Ref.: https://www.postgresql.org/docs/current/static/runtime-config.html
+#
+configuration: ""
+
+## Map of annotations to add to the pods (postgresql primary)
+#
+podAnnotations: {}
+
+## Optionally specify extra PodSpec for the PostgreSQL pod(s)
+#
+extraPodSpec: {}
+
+## Affinity for PostgreSQL pods assignment
+## Ref.: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+#
+affinity: {}
+
+## Node labels for PostgreSQL pods assignment
+## Ref.: https://kubernetes.io/docs/user-guide/node-selection/
+#
+nodeSelector: {}
+
+## Tolerations for PostgreSQL pods assignment
+## Ref.: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+#
+tolerations: []
+
+## Topology Spread Constraints for pod assignment spread across your cluster among failure-domains. Evaluated as a template
+## Ref.: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/#spread-constraints-for-pods
+#
+topologySpreadConstraints: []
+
+## Priority Class to use for each pod (postgresql primary)
+#
+priorityClassName: ""
+
+## Use an alternate scheduler, e.g. "stork".
+## Ref.: https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/
+#
+schedulerName: ""
+
+## Seconds PostgreSQL pod needs to terminate gracefully
+## Ref.: https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods
+#
+terminationGracePeriodSeconds: 120
+
+## Pod Security Context
+## Ref.: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+## podSecurityContext.enabled Enable security context
+## podSecurityContext.fsGroup Group ID for the pod
+#
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+
+## Container Security Context
+## Ref.: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+## containerSecurityContext.enabled Enable container security context
+## containerSecurityContext.runAsUser User ID for the container
+#
+containerSecurityContext:
+  enabled: true
+  runAsUser: 1001
+
+## Specify if host network should be enabled for PostgreSQL pod
+#
+hostNetwork: false
+
+## Specify if host IPC should be enabled for PostgreSQL pod
+#
+hostIPC: false
+
+## PostgreSQL Primary resource requests and limits
+## Ref.: https://kubernetes.io/docs/user-guide/compute-resources/
+## resources.limits The resources limits for the PostgreSQL containers
+## resources.requests.memory The requested memory for the PostgreSQL containers
+## resources.requests.cpu The requested cpu for the PostgreSQL containers
+#
+resources:
+  limits: {}
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+
+## PostgreSQL container to automate configuration before or after startup
+#
+lifecycleHooks: {}
+
+## PostgreSQL persistence configuration
+#
+persistence:
+  ## Whether to enable persistence or not.
+  #
+  enabled: true
+
+  ## Name of an existing PVC to use
+  #
+  existingClaim: ""
+
+  ## The path the volume will be mounted at
+  #
+  mountPath: "/mnt/postgresql"
+
+  ## The subdirectory of the volume to mount to
+  ## Useful in dev environments and one PV for multiple services
+  #
+  subPath: ""
+
+  ## PVC Storage Class for PostgreSQL data volume
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AS & OpenStack)
+  ##
+  storageClass: ""
+
+  ## PVC Access Mode for PostgreSQL volume
+  #
+  accessModes:
+    - "ReadWriteOnce"
+
+  ## PVC Storage Request for PostgreSQL volume
+  #
+  size: "8Gi"
+
+  ## Annotations for the PVC
+  #
+  annotations: {}
+
+  ## Labels for the PVC
+  #
+  labels: {}
+
+  ## Selector to match an existing Persistent Volume (this value is evaluated as a template)
+  ## selector:
+  ##   matchLabels:
+  ##     app: my-app
+  #
+
+  selector: {}
+
+  ## Custom PVC data source
+  #
+  dataSource: {}
+
+## Optionally specify extra list of additional volumeMounts for the PostgreSQL container(s)
+#
+extraVolumeMounts: []
+
+## Optionally specify extra list of additional volumes for the PostgreSQL pod(s)
+#
+extraVolumes: []
+
+## PostgreSQL container port
+#
+containerPorts:
+  postgresql: 5432
+
+## Array with extra environment variables to add to PostgreSQL nodes
+## e.g:
+## extraEnvVars:
+##   - name: FOO
+##     value: "bar"
+#
+extraEnvVars: []
+
+## Name of existing ConfigMap containing extra env vars for PostgreSQL Primary nodes
+#
+
+extraEnvVarsCM: ""
+## Name of existing Secret containing extra env vars for PostgreSQL Primary nodes
+#
+
+extraEnvVarsSecret: ""
+## PostgreSQL data dir folder
+#
+postgresqlDataDir: "/mnt/postgresql/data"
+
+postgres:
+  user: "postgres"
+  password: "SUPERSTRONGPW"
+
+## Service account for PostgreSQL to use.
+## Ref.: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+#
+serviceAccount:
+  ## Enable creation of ServiceAccount for PostgreSQL pod
+  #
+  create: false
+
+  ## Allows auto mount of ServiceAccountToken on the serviceAccount created
+  ## Can be set to false if pods using this serviceAccount do not need to use K8s API
+  #
+  automountServiceAccountToken: true
+
+  ## Additional custom annotations for the ServiceAccount
+  #
+  annotations: {}
+
+## PostgreSQL service configuration
+#
+service:
+  ## Kubernetes Service type
+  #
+  type: "ClusterIP"
+
+  ## PostgreSQL service port
+  #
+  ports:
+    postgresql: 5432
+
+  ## Node ports to expose
+  ## NOTE: choose port between <30000-32767>
+  ## Node port for PostgreSQL
+  ## Ref.: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+  #
+  nodePorts:
+    postgresql: ""
+
+  ## Static clusterIP or None for headless services
+  ## e.g:
+  ## clusterIP: None
+  #
+  clusterIP: ""
+
+  ## Annotations for PostgreSQL service
+  #
+  annotations: {}
+
+  ## Load balancer IP if service type is `LoadBalancer`
+  ## Set the LoadBalancer service type to internal only
+  ## Ref.: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+  #
+  loadBalancerIP: ""
+
+  ## Enable client source IP preservation
+  ## Ref.: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+  #
+  externalTrafficPolicy: "Cluster"
+
+  ## Addresses that are allowed when service is LoadBalancer
+  ## Ref.: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
+  ##
+  ## loadBalancerSourceRanges:
+  ## - 10.10.10.0/24
+  ##
+  loadBalancerSourceRanges: []
+
+  ## Extra ports to expose in the PostgreSQL service
+  #
+  extraPorts: []
+
+  ## Session Affinity for Kubernetes service, can be "None" or "ClientIP"
+  ## If "ClientIP", consecutive client requests will be directed to the same Pod
+  ## Ref.: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+  #
+  sessionAffinity: None
+
+  ## Additional settings for the sessionAffinity
+  ## sessionAffinityConfig:
+  ##   clientIP:
+  ##     timeoutSeconds: 300
+  #
+  sessionAffinityConfig: {}
+
+  ## Headless service properties
+  #
+  headless:
+    ## Additional custom annotations for headless PostgreSQL service
+    #
+    annotations: {}
+
+## Configure extra options for PostgreSQL Primary containers' liveness, readiness and startup probes
+## Ref.: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes
+
+## livenessProbe.enabled Enable livenessProbe on PostgreSQL Primary containers
+## livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## livenessProbe.periodSeconds Period seconds for livenessProbe
+## livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## livenessProbe.failureThreshold Failure threshold for livenessProbe
+## livenessProbe.successThreshold Success threshold for livenessProbe
+#
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+## readinessProbe.enabled Enable readinessProbe on PostgreSQL Primary containers
+## readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## readinessProbe.periodSeconds Period seconds for readinessProbe
+## readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## readinessProbe.failureThreshold Failure threshold for readinessProbe
+## readinessProbe.successThreshold Success threshold for readinessProbe
+#
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+## startupProbe.enabled Enable startupProbe on PostgreSQL Primary containers
+## startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+## startupProbe.periodSeconds Period seconds for startupProbe
+## startupProbe.timeoutSeconds Timeout seconds for startupProbe
+## startupProbe.failureThreshold Failure threshold for startupProbe
+## startupProbe.successThreshold Success threshold for startupProbe
+#
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 15
+  successThreshold: 1
+
+job:
+  ## Whether to enable job or not.
+  #
+  enabled: true
+
+  ## Define image for psql.
+  #
+  image:
+    ## Define docker registry address.
+    #
+    # registry: "docker.io"
+
+    ## Define repository string.
+    #
+    repository: "governmentpaas/psql"
+
+    ## Define image tag.
+    #
+    tag: "latest"
+
+    ## Define a imagePullPolicy.
+    ##
+    ## Ref.: https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy
+    ##
+    ## "IfNotPresent" => The image is pulled only if it is not already present locally.
+    ## "Always" => Every time the kubelet launches a container, the kubelet queries the container image registry to
+    ##             resolve the name to an image digest. If the kubelet has a container image with that exact digest cached
+    ##             locally, the kubelet uses its cached image; otherwise, the kubelet pulls the image with the resolved
+    ##             digest, and uses that image to launch the container.
+    ## "Never" => The kubelet does not try fetching the image. If the image is somehow already present locally, the
+    ##            kubelet attempts to start the container; otherwise, startup fails
+    #
+    imagePullPolicy: "IfNotPresent"
+
+  ## Amount of retries while waiting for postgresql server is available.
+  #
+  retries: 6
+
+  ## Time to wait in each wait in each iteration until postgresql server is available.
+  #
+  wait: 10
+
+  ## Bootstrap users into postgresql server. When users already exists, they will stay untouched.
+  ##
+  ## users:
+  ##   - username: "name_of_user"
+  ##     password: "RandomPassword0#"
+  users:
+    - username: "keycloak_user"
+      password: ""
+
+  ## Bootstrap databases into postgresql server. When databases already exists, they will stay untouched.
+  ##
+  ## databases:
+  ##  - name: "name_of_database"
+  ##    user: "existing_user_which_will_get_grant"
+  #
+  databases:
+    - name: "keycloak"
+      user: "keycloak_user"
+
+...
