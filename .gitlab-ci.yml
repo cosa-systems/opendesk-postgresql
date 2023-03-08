@@ -65,7 +65,7 @@ publish:
   needs:
     - "package"
     - "prepare"
-  image: "${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/curlimages/curl@sha256:2ca8557052e23428e06d4944f85cf4f12fb59909bf34afde044e3938ed15920d"
+  image: "${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/curlimages/curl:latest"
   script:
     - "if [ -z \"${RELEASE_VERSION}\" ]; then exit 0; fi"
     - |
