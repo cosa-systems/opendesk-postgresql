@@ -429,18 +429,15 @@ job:
   ## users:
   ##   - username: "name_of_user"
   ##     password: "RandomPassword0#"
-  users:
-    - username: "keycloak_user"
-      password: ""
+  users: []
 
   ## Bootstrap databases into postgresql server. When databases already exists, they will stay untouched.
   ##
   ## databases:
   ##  - name: "name_of_database"
   ##    user: "existing_user_which_will_get_grant"
+  ##    additionalParams: "" # Optional
   #
-  databases:
-    - name: "keycloak"
-      user: "keycloak_user"
+  databases: []
 
 ...
