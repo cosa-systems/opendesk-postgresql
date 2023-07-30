@@ -1,21 +1,68 @@
+{{/*
+SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
+SPDX-License-Identifier: Apache-2.0
+*/}}
 {{- if .Values.job.enabled }}
 ---
 apiVersion: "batch/v1"
 kind: "Job"
 metadata:
   name: "{{ include "common.names.fullname" . }}-bootstrap"
+  namespace: {{ include "common.names.namespace" . | quote }}
   labels:
     {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" . ) | nindent 4 }}
+    {{- end }}
   annotations:
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" . ) | nindent 4 }}
+    {{- end }}
     "helm.sh/hook": "post-install,post-upgrade"
     "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
 spec:
   template:
     spec:
-      {{- include "common.images.renderPullSecrets" ( dict "images" (list .Values.job.image) "context" $) | nindent 6 }}
+      {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      {{- end }}
+      {{- if .Values.schedulerName }}
+      schedulerName: {{ .Values.schedulerName | quote }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.affinity "context" . ) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" . ) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.topologySpreadConstraints }}
+      topologySpreadConstraints: {{- include "common.tplvalues.render" (dict "value" .Values.topologySpreadConstraints "context" . ) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" . ) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.podSecurityContext.enabled }}
+      securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "common.names.fullname" . }}
+      {{- end }}
+      {{- if or .Values.imagePullSecrets .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range .Values.global.imagePullSecrets }}
+        - name: "{{ . }}"
+        {{- end }}
+        {{- range .Values.imagePullSecrets }}
+        - name: "{{ . }}"
+        {{- end }}
+      {{- end }}
       containers:
       - name: "psql"
-        image: {{ include "common.images.image" (dict "imageRoot" .Values.job.image "global" .Values.global ) }}
+        {{- if .Values.containerSecurityContext.enabled }}
+        securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+        {{- end }}
+        image: "{{ coalesce .Values.image.registry .Values.global.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
         command:
           - "/bin/sh"
           - "-c"
@@ -28,11 +75,14 @@ spec:
           - name: "PGHOST"
             value: "{{ include "common.names.fullname" . }}"
           - name: "PGPORT"
-            value: "{{ .Values.service.ports.postgresql }}"
+            value: "{{ .Values.service.ports.postgresql.port }}"
           - name: "PGUSER"
             value: "{{ .Values.postgres.user }}"
           - name: "PGPASSWORD"
             value: "{{ .Values.postgres.password }}"
+        {{- if .Values.resources }}
+        resources: {{- include "common.tplvalues.render" (dict "value" .Values.resources "context" . ) | nindent 12 }}
+        {{- end }}
       volumes:
         - name: "bootstrap"
           secret:

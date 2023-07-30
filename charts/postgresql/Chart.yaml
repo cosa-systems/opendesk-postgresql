@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
+# SPDX-License-Identifier: Apache-2.0
 ---
 annotations:
   category: "Database"
@@ -9,13 +11,13 @@ dependencies:
       - "bitnami-common"
     version: "2.x.x"
 description: "A Helm chart for running PostgreSQL (Postgres) database"
+home: "https://zendis.de"
 keywords:
   - "postgresql"
   - "postgres"
   - "database"
   - "sql"
 name: "postgresql"
-sources:
-  - "https://www.postgresql.org/"
+type: "application"
 version: "0.0.0"
 ...
