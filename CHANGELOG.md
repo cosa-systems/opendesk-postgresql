@@ -1,3 +1,10 @@
+## [2.0.2](https://gitlab.souvap-univention.de/souvap/tooling/charts/postgresql/compare/v2.0.1...v2.0.2) (2023-08-27)
+
+
+### Bug Fixes
+
+* **postgresql:** Enhance the default security settings ([d5ac3ea](https://gitlab.souvap-univention.de/souvap/tooling/charts/postgresql/commit/d5ac3ea62ea58c80d85fa2527d47cc4788e0c1cf))
+
 ## [2.0.1](https://gitlab.souvap-univention.de/souvap/tooling/charts/postgresql/compare/v2.0.0...v2.0.1) (2023-08-03)
 
 
