@@ -31,11 +31,31 @@ containerSecurityContext:
   # -- Enable container privileged escalation.
   allowPrivilegeEscalation: false
 
+  # -- Security capabilities for container.
+  capabilities:
+    drop:
+      - "ALL"
+
   # -- Enable security context.
   enabled: true
 
+  # -- Process user id.
+  runAsUser: 1001
+
+  # -- Process group id.
+  runAsGroup: 1001
+
+  # Set Seccomp profile.
+  seccompProfile:
+    # -- Disallow custom Seccomp profile by setting it to RuntimeDefault.
+    type: "RuntimeDefault"
+
   # -- Mounts the container's root filesystem as read-only.
   readOnlyRootFilesystem: true
+
+  # -- Run container as user.
+  runAsNonRoot: true
+
 
 # -- Array with extra environment variables to add to containers.
 #
@@ -238,11 +258,8 @@ podSecurityContext:
   # -- If specified, all processes of the container are also part of the supplementary group.
   fsGroup: 1001
 
-  # -- Process user id
-  runAsUser: 1001
-
-  # -- Process group id
-  runAsGroup: 1001
+  # -- Change ownership and permission of the volume before being exposed inside a Pod.
+  fsGroupChangePolicy: "OnRootMismatch"
 
 # PostgreSQL configuration.
 postgres:
@@ -354,10 +371,10 @@ serviceAccount:
 
   # -- Allows auto mount of ServiceAccountToken on the serviceAccount created. Can be set to false if pods using this
   # serviceAccount do not need to use K8s API.
-  automountServiceAccountToken: true
+  automountServiceAccountToken: false
 
   # -- Enable creation of ServiceAccount for pod.
-  create: false
+  create: true
 
   # -- Additional custom labels for the ServiceAccount.
   labels: {}

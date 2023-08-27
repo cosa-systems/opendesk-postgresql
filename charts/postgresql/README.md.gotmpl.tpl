@@ -1,6 +1,5 @@
 <!--
 SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
-
 SPDX-License-Identifier: Apache-2.0
 -->
 {{ template "chart.header" . }}
@@ -8,11 +7,18 @@ SPDX-License-Identifier: Apache-2.0
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `my-release`, you have two options:
 
+### Install via Repository
 ```console
 helm repo add ${CI_PROJECT_NAME} ${CI_SERVER_PROTOCOL}://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/helm/stable
-helm install my-release ${CI_PROJECT_NAME}/{{ template "chart.name" . }}
+helm install my-release --version ${RELEASE_VERSION} ${CI_PROJECT_NAME}/{{ template "chart.name" . }}
+```
+
+### Install via OCI Registry
+```console
+helm repo add ${CI_PROJECT_NAME} oci://${CI_REGISTRY_IMAGE}
+helm install my-release --version ${RELEASE_VERSION} ${CI_PROJECT_NAME}/{{ template "chart.name" . }}
 ```
 
 {{ template "chart.requirementsSection" . }}
