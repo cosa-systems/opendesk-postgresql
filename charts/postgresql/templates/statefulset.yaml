@@ -50,10 +50,10 @@ spec:
       {{- if or .Values.imagePullSecrets .Values.global.imagePullSecrets }}
       imagePullSecrets:
         {{- range .Values.global.imagePullSecrets }}
-        - name: "{{ . }}"
+        - name: {{ . | quote }}
         {{- end }}
         {{- range .Values.imagePullSecrets }}
-        - name: "{{ . }}"
+        - name: {{ . | quote }}
         {{- end }}
       {{- end }}
       {{- if .Values.affinity }}
@@ -84,13 +84,13 @@ spec:
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
-          image: "{{ coalesce .Values.image.registry .Values.global.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: {{ printf "%s/%s:%s" (coalesce .Values.image.registry .Values.global.registry) .Values.image.repository .Values.image.tag | quote }}
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           env:
             - name: "POSTGRES_PASSWORD"
-              value: {{ tpl .Values.postgres.password . }}
+              value: {{ tpl .Values.postgres.password . | quote }}
             - name: "POSTGRES_USER"
-              value: {{ tpl .Values.postgres.user . }}
+              value: {{ tpl .Values.postgres.user . | quote }}
             - name: "PGPORT"
               value: {{ .Values.service.ports.postgresql.containerPort | quote }}
             - name: "PGDATA"
