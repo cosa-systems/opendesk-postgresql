@@ -1,3 +1,10 @@
+## [2.0.3](https://gitlab.souvap-univention.de/souvap/tooling/charts/postgresql/compare/v2.0.2...v2.0.3) (2023-10-25)
+
+
+### Bug Fixes
+
+* **postgresql:** Use "| quote" wherever possible ([ec66289](https://gitlab.souvap-univention.de/souvap/tooling/charts/postgresql/commit/ec662890d0bdf825efca8380f28ea82e0670fcc5))
+
 ## [2.0.2](https://gitlab.souvap-univention.de/souvap/tooling/charts/postgresql/compare/v2.0.1...v2.0.2) (2023-08-27)
 
 

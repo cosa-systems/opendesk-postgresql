@@ -13,13 +13,13 @@ To install the chart with the release name `my-release`, you have two options:
 ### Install via Repository
 ```console
 helm repo add postgresql https://gitlab.souvap-univention.de/api/v4/projects/83/packages/helm/stable
-helm install my-release --version 2.0.2 postgresql/postgresql
+helm install my-release --version 2.0.3 postgresql/postgresql
 ```
 
 ### Install via OCI Registry
 ```console
-helm repo add postgresql oci://
-helm install my-release --version 2.0.2 postgresql/postgresql
+helm repo add postgresql oci://registry.souvap-univention.de/souvap/tooling/charts/postgresql
+helm install my-release --version 2.0.3 postgresql/postgresql
 ```
 
 ## Requirements
