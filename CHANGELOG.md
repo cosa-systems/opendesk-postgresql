@@ -1,3 +1,10 @@
+## [2.0.4](https://gitlab.opencode.de/bmi/opendesk/components/charts/opendesk-postgresql/compare/v2.0.3...v2.0.4) (2023-12-20)
+
+
+### Bug Fixes
+
+* **ci:** Move repo to Open CoDE ([ea6f4a2](https://gitlab.opencode.de/bmi/opendesk/components/charts/opendesk-postgresql/commit/ea6f4a22c0a6e1d442d1d0da0bcf733a894f0c4d))
+
 ## [2.0.3](https://gitlab.souvap-univention.de/souvap/tooling/charts/postgresql/compare/v2.0.2...v2.0.3) (2023-10-25)
 
 
