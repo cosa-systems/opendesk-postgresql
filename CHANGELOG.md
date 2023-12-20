@@ -1,3 +1,10 @@
+## [2.0.5](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.0.4...v2.0.5) (2023-12-20)
+
+
+### Bug Fixes
+
+* **ci:** Add .common:tags: [] ([5f5d204](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/commit/5f5d2044836df07964b2d77ac8713aaf04083c24))
+
 ## [2.0.4](https://gitlab.opencode.de/bmi/opendesk/components/charts/opendesk-postgresql/compare/v2.0.3...v2.0.4) (2023-12-20)
 
 
