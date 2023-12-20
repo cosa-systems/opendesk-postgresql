@@ -16,4 +16,7 @@ stages:
   - "package"
   - "publish"
   - ".post"
+
+.common:
+  tags: []
 ...
