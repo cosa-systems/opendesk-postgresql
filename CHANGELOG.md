@@ -1,3 +1,10 @@
+## [2.0.6](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.0.5...v2.0.6) (2023-12-21)
+
+
+### Bug Fixes
+
+* Add GPG key, update README.md ([bd641cc](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/commit/bd641cc31a7ee78db3346acbb84c471f8ccdf227))
+
 ## [2.0.5](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.0.4...v2.0.5) (2023-12-20)
 
 

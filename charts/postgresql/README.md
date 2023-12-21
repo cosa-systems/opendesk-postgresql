@@ -11,15 +11,17 @@ A Helm chart for running PostgreSQL (Postgres) database
 To install the chart with the release name `my-release`, you have two options:
 
 ### Install via Repository
+
 ```console
 helm repo add opendesk-postgresql https://gitlab.opencode.de/api/v4/projects/1392/packages/helm/stable
-helm install my-release --version 2.0.5 opendesk-postgresql/postgresql
+helm install my-release --version 2.0.6 opendesk-postgresql/postgresql
 ```
 
 ### Install via OCI Registry
+
 ```console
 helm repo add opendesk-postgresql oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql
-helm install my-release --version 2.0.5 opendesk-postgresql/postgresql
+helm install my-release --version 2.0.6 opendesk-postgresql/postgresql
 ```
 
 ## Requirements
@@ -144,28 +146,14 @@ helm uninstall my-release
 
 ## Signing
 
-### Chart
+Helm charts are signed with helm native signing method.
 
-Helm charts are signed with helm native signing method. You can verify the charts against this GPG key:
-
-```
-
-```
-
-### Images
-
-Container images are signed via [cosign](https://github.com/sigstore/cosign) and can be verified with:
-
-```
-
-```
-
-```
-cosign verify --key cosign.pub --insecure-ignore-tlog <image>
-```
+You can verify the chart against [the public GPG key](../../files/gpg-pubkeys/opendesk.gpg).
 
 ## License
+
 This project uses the following license: Apache-2.0
 
 ## Copyright
+
 Copyright (C) 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
