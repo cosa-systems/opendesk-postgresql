@@ -1,3 +1,10 @@
+# [2.1.0](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.0.6...v2.1.0) (2024-08-15)
+
+
+### Features
+
+* **init:** Support for user based connection limits and password update. ([b9be1a8](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/commit/b9be1a83721e0b2f16f4eea335dd22eee9451a74))
+
 ## [2.0.6](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.0.5...v2.0.6) (2023-12-21)
 
 

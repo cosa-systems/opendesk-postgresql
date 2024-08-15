@@ -14,14 +14,14 @@ To install the chart with the release name `my-release`, you have two options:
 
 ```console
 helm repo add opendesk-postgresql https://gitlab.opencode.de/api/v4/projects/1392/packages/helm/stable
-helm install my-release --version 2.0.6 opendesk-postgresql/postgresql
+helm install my-release --version 2.1.0 opendesk-postgresql/postgresql
 ```
 
 ### Install via OCI Registry
 
 ```console
 helm repo add opendesk-postgresql oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql
-helm install my-release --version 2.0.6 opendesk-postgresql/postgresql
+helm install my-release --version 2.1.0 opendesk-postgresql/postgresql
 ```
 
 ## Requirements
@@ -69,7 +69,7 @@ helm install my-release --version 2.0.6 opendesk-postgresql/postgresql
 | job.image.repository | string | `"governmentpaas/psql"` | Container repository string. |
 | job.image.tag | string | `"latest"` | Define image tag. |
 | job.retries | int | `60` | Amount of retries while waiting for postgresql server is available. |
-| job.users | list | `[]` | Bootstrap users into postgresql server. When users already exists, they will stay untouched.  users:   - username: "name_of_user"     password: "RandomPassword0#" |
+| job.users | list | `[]` | Bootstrap users into postgresql server. When a user already exists its password and user specific connectionLimit are updated.  users:   - username: "name_of_user"     password: "RandomPassword0#"     connectionLimit: 10 |
 | job.wait | int | `5` | Time to wait in each wait in each iteration until postgresql server is available. |
 | lifecycleHooks | object | `{}` | Lifecycle to automate configuration before or after startup. |
 | livenessProbe.enabled | bool | `true` | Enables kubernetes LivenessProbe. |
