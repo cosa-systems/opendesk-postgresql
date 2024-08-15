@@ -157,11 +157,13 @@ job:
   # -- Time to wait in each wait in each iteration until postgresql server is available.
   wait: 5
 
-  # -- Bootstrap users into postgresql server. When users already exists, they will stay untouched.
+  # -- Bootstrap users into postgresql server. When a user already exists its password and user specific
+  # connectionLimit are updated.
   #
   # users:
   #   - username: "name_of_user"
   #     password: "RandomPassword0#"
+  #     connectionLimit: 10
   users: []
 
   # -- Bootstrap databases into postgresql server. When databases already exists, they will stay untouched.
