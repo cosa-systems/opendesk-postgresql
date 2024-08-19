@@ -1,3 +1,10 @@
+## [2.1.1](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.0...v2.1.1) (2024-08-19)
+
+
+### Bug Fixes
+
+* User specific connection support. ([b999e89](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/commit/b999e89b08828bfead3143606eca0db65bdbd691))
+
 # [2.1.0](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.0.6...v2.1.0) (2024-08-15)
 
 

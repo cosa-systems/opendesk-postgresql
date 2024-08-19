@@ -14,14 +14,14 @@ To install the chart with the release name `my-release`, you have two options:
 
 ```console
 helm repo add opendesk-postgresql https://gitlab.opencode.de/api/v4/projects/1392/packages/helm/stable
-helm install my-release --version 2.1.0 opendesk-postgresql/postgresql
+helm install my-release --version 2.1.1 opendesk-postgresql/postgresql
 ```
 
 ### Install via OCI Registry
 
 ```console
 helm repo add opendesk-postgresql oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql
-helm install my-release --version 2.1.0 opendesk-postgresql/postgresql
+helm install my-release --version 2.1.1 opendesk-postgresql/postgresql
 ```
 
 ## Requirements
@@ -35,6 +35,8 @@ helm install my-release --version 2.1.0 opendesk-postgresql/postgresql
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity for pod assignment. Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity Note: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set. |
+| cleanup.deletePodsOnSuccess | bool | `true` | Keep Pods/Job logs after successful run. |
+| cleanup.deletePodsOnSuccessTimeout | int | `3600` | When deletePodsOnSuccess is enabled, the pod will be deleted after configured seconds. |
 | commonAnnotations | object | `{}` | Additional custom annotations to add to all deployed objects. |
 | commonLabels | object | `{}` | Additional custom labels to add to all deployed objects. |
 | containerSecurityContext.allowPrivilegeEscalation | bool | `false` | Enable container privileged escalation. |
