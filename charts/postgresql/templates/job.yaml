@@ -7,7 +7,7 @@ SPDX-License-Identifier: Apache-2.0
 apiVersion: "batch/v1"
 kind: "Job"
 metadata:
-  name: "{{ include "common.names.fullname" . }}-bootstrap"
+  name: {{ printf "%s-bootstrap" ( include "common.names.fullname" . ) | quote }}
   namespace: {{ include "common.names.namespace" . | quote }}
   labels:
     {{- include "common.labels.standard" . | nindent 4 }}
@@ -19,8 +19,13 @@ metadata:
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" . ) | nindent 4 }}
     {{- end }}
     "helm.sh/hook": "post-install,post-upgrade"
+    {{- if .Values.cleanup.deletePodsOnSuccess }}
     "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+    {{- end }}
 spec:
+  {{- if .Values.cleanup.deletePodsOnSuccess }}
+  ttlSecondsAfterFinished: {{ .Values.cleanup.deletePodsOnSuccessTimeout }}
+  {{- end }}
   template:
     metadata:
       labels:

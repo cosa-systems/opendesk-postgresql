@@ -19,6 +19,13 @@ global:
 # Note: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set.
 affinity: {}
 
+# Helm release cleanup setting.
+cleanup:
+  # -- Keep Pods/Job logs after successful run.
+  deletePodsOnSuccess: true
+  # -- When deletePodsOnSuccess is enabled, the pod will be deleted after configured seconds.
+  deletePodsOnSuccessTimeout: 3600
+
 # -- Additional custom annotations to add to all deployed objects.
 commonAnnotations: {}
 
