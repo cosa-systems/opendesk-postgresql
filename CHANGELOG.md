@@ -1,3 +1,10 @@
+## [2.1.2](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.1...v2.1.2) (2025-01-10)
+
+
+### Bug Fixes
+
+* Set `max_connections` based on the sum of the user connection limits ([198983e](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/commit/198983e52e1efd93bba5696a7f564899731b884b))
+
 ## [2.1.1](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.0...v2.1.1) (2024-08-19)
 
 
