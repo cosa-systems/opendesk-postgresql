@@ -94,7 +94,14 @@ spec:
           - name: "PGUSER"
             value: {{ .Values.postgres.user | quote }}
           - name: "PGPASSWORD"
+            {{- if .Values.postgres.existingSecret.name }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ tpl .Values.postgres.existingSecret.name . | quote }}
+                key: {{ .Values.postgres.existingSecret.key | quote }}
+            {{- else }}
             value: {{ .Values.postgres.password | quote }}
+            {{- end }}
         {{- if .Values.resources }}
         resources: {{- include "common.tplvalues.render" (dict "value" .Values.resources "context" . ) | nindent 12 }}
         {{- end }}
