@@ -278,8 +278,15 @@ postgres:
   # -- Database user.
   user: "postgres"
 
-  # -- Database password.
+  # -- Database password as plain value.
   password: "SUPERSTRONGPW"
+
+  # Database password from an existing secret (higher precedence than the plain value).
+  existingSecret:
+    # -- Name of the Kubernetes secret that contains the password for the database user.
+    name: ""
+    # -- Key inside the Kubernetes secret that contains the password for the database user.
+    key: ""
 
 # -- Define PriorityClass name for pod.
 # Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass

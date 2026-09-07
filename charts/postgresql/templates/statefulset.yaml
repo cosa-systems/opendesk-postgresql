@@ -88,7 +88,14 @@ spec:
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           env:
             - name: "POSTGRES_PASSWORD"
+              {{- if .Values.postgres.existingSecret.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ tpl .Values.postgres.existingSecret.name . | quote }}
+                  key: {{ .Values.postgres.existingSecret.key | quote }}
+              {{- else }}
               value: {{ tpl .Values.postgres.password . | quote }}
+              {{- end }}
             - name: "POSTGRES_USER"
               value: {{ tpl .Values.postgres.user . | quote }}
             - name: "PGPORT"
