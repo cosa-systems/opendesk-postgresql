@@ -102,6 +102,15 @@ spec:
             {{- else }}
             value: {{ .Values.postgres.password | quote }}
             {{- end }}
+          {{- range $i, $user := .Values.job.users }}
+          {{- if ($user.existingSecret).name }}
+          - name: "PGPASSWORD_USER_{{ $i }}"
+            valueFrom:
+              secretKeyRef:
+                name: {{ tpl $user.existingSecret.name $ | quote }}
+                key: {{ $user.existingSecret.key | quote }}
+          {{- end }}
+          {{- end }}
         {{- if .Values.resources }}
         resources: {{- include "common.tplvalues.render" (dict "value" .Values.resources "context" . ) | nindent 12 }}
         {{- end }}
