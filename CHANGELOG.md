@@ -1,3 +1,10 @@
+## [2.1.3](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.2...v2.1.3) (2026-09-22)
+
+
+### Bug Fixes
+
+* **ci:** Migrate to new pipeline template ([38522c0](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/commit/38522c0b6943735f029ffe0cae64d78a31619c81))
+
 ## [2.1.2](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.1...v2.1.2) (2025-01-10)
 
 
