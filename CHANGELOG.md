@@ -1,3 +1,10 @@
+## [2.1.5](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.4...v2.1.5) (2026-09-23)
+
+
+### Bug Fixes
+
+* **ci:** Force rebuild due to signing key rotation ([5341e2e](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/commit/5341e2ef1e6c6aa28804e3a8f0ffe7d62b6eebb1))
+
 ## [2.1.4](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.3...v2.1.4) (2026-09-23)
 
 

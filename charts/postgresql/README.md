@@ -14,14 +14,14 @@ To install the chart with the release name `my-release`, you have two options:
 
 ```console
 helm repo add opendesk-postgresql https://gitlab.opencode.de/api/v4/projects/1392/packages/helm/stable
-helm install my-release --version 2.1.4 opendesk-postgresql/postgresql
+helm install my-release --version 2.1.5 opendesk-postgresql/postgresql
 ```
 
 ### Install via OCI Registry
 
 ```console
 helm repo add opendesk-postgresql oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql
-helm install my-release --version 2.1.4 opendesk-postgresql/postgresql
+helm install my-release --version 2.1.5 opendesk-postgresql/postgresql
 ```
 
 ## Requirements
