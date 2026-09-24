@@ -1,3 +1,10 @@
+## [2.1.6](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.5...v2.1.6) (2026-09-24)
+
+
+### Bug Fixes
+
+* Set global max connections via CLI ([4ead85a](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/commit/4ead85ab530c10947b723869eca529d82e3278db))
+
 ## [2.1.5](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql/compare/v2.1.4...v2.1.5) (2026-09-23)
 
 

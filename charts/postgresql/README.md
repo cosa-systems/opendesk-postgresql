@@ -14,14 +14,14 @@ To install the chart with the release name `my-release`, you have two options:
 
 ```console
 helm repo add opendesk-postgresql https://gitlab.opencode.de/api/v4/projects/1392/packages/helm/stable
-helm install my-release --version 2.1.5 opendesk-postgresql/postgresql
+helm install my-release --version 2.1.6 opendesk-postgresql/postgresql
 ```
 
 ### Install via OCI Registry
 
 ```console
 helm repo add opendesk-postgresql oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-postgresql
-helm install my-release --version 2.1.5 opendesk-postgresql/postgresql
+helm install my-release --version 2.1.6 opendesk-postgresql/postgresql
 ```
 
 ## Requirements
@@ -97,6 +97,8 @@ helm install my-release --version 2.1.5 opendesk-postgresql/postgresql
 | podSecurityContext.fsGroup | int | `1001` | If specified, all processes of the container are also part of the supplementary group. |
 | podSecurityContext.fsGroupChangePolicy | string | `"OnRootMismatch"` | Change ownership and permission of the volume before being exposed inside a Pod. |
 | postgres.configuration | string | `""` | PostgreSQL additional configuration to be injected as ConfigMap. |
+| postgres.maxConnections | string | `nil` | Server wide max_connections, passed as startup argument so changes restart the pod. When unset, it is `maxConnectionsOverhead` plus the sum of `job.users[].connectionLimit`; without users the image default applies. |
+| postgres.maxConnectionsOverhead | int | `15` | Connections added on top of the summed user connection limits, e.g. for superuser and maintenance access. |
 | postgres.password | string | `"SUPERSTRONGPW"` | Database password. |
 | postgres.user | string | `"postgres"` | Database user. |
 | priorityClassName | string | `""` | Define PriorityClass name for pod. Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass |
