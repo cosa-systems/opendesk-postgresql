@@ -86,6 +86,12 @@ spec:
           {{- end }}
           image: {{ printf "%s/%s:%s" (coalesce .Values.image.registry .Values.global.registry) .Values.image.repository .Values.image.tag | quote }}
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+          {{- with include "postgresql.maxConnections" . }}
+          args:
+            - "postgres"
+            - "-c"
+            - {{ printf "max_connections=%s" . | quote }}
+          {{- end }}
           env:
             - name: "POSTGRES_PASSWORD"
               value: {{ tpl .Values.postgres.password . | quote }}

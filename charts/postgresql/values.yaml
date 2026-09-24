@@ -275,6 +275,13 @@ postgres:
   # -- PostgreSQL additional configuration to be injected as ConfigMap.
   configuration: ""
 
+  # -- Server wide max_connections, passed as startup argument so changes restart the pod. When unset, it is
+  # `maxConnectionsOverhead` plus the sum of `job.users[].connectionLimit`; without users the image default applies.
+  maxConnections: null
+
+  # -- Connections added on top of the summed user connection limits, e.g. for superuser and maintenance access.
+  maxConnectionsOverhead: 15
+
   # -- Database user.
   user: "postgres"
 
