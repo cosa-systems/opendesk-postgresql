@@ -19,5 +19,5 @@ keywords:
   - "sql"
 name: "postgresql"
 type: "application"
-version: "2.1.6"
+version: "2.1.6-cosa.1"
 ...
